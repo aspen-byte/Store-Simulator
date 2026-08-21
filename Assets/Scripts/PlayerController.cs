@@ -39,6 +39,10 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     public LayerMask whatIsBin;
 
+    public LayerMask whatIsFurniture;
+    public Transform furniturePoint;
+    public GameObject heldFurniture;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -121,7 +125,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
          {
              Debug.Log("I can't see anything!!!!");
          } */
-        if (heldPickup == null && heldBox == null)
+        if (heldPickup == null && heldBox == null && heldFurniture == null)
         {
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
@@ -185,6 +189,18 @@ public class NewMonoBehaviourScript : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, interactionRange, whatIsShelf))
                 {
                     hit.collider.GetComponent<ShelfSpaceController>().StartPriceUpdate();
+                }
+            }
+
+            if(Keyboard.current.rKey.wasPressedThisFrame)
+            {
+                if (Physics.Raycast(ray, out hit, interactionRange, whatIsFurniture))
+                {
+                    heldFurniture = hit.transform.gameObject;
+
+                    heldFurniture.transform.SetParent(furniturePoint);
+                    heldFurniture.transform.localPosition = Vector3.zero;
+                    heldFurniture.transform.localRotation = Quaternion.identity;
                 }
             }
         }
@@ -284,6 +300,18 @@ public class NewMonoBehaviourScript : MonoBehaviour
                             placeStockCounter = waitToPlaceStock;
                         }
                     }
+                }
+            }
+
+            if(heldFurniture != null)
+            {
+                heldFurniture.transform.position = new Vector3(furniturePoint.position.x, 0f, furniturePoint.position.z);
+                heldFurniture.transform.LookAt(new Vector3(transform.position.x, 0f, transform.position.z));
+
+                if(Mouse.current.leftButton.wasPressedThisFrame || Keyboard.current.rKey.wasPressedThisFrame)
+                {
+                    heldFurniture.transform.SetParent(null);
+                    heldFurniture = null;
                 }
             }
         }
