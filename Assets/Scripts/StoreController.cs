@@ -12,7 +12,7 @@ public class StoreController : MonoBehaviour
 
     public float currentMoney = 1000f;
 
-    public Transform stockSpawnPoint;
+    public Transform stockSpawnPoint, furnitureSpawnPoint;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
