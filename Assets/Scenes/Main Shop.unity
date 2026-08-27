@@ -5700,9 +5700,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Customer
   points:
-  - {fileID: 476235652}
-  - {fileID: 1732732219}
-  - {fileID: 1530049819}
+  - point: {fileID: 476235652}
+    waitTime: 1
+  - point: {fileID: 1732732219}
+    waitTime: 0
+  - point: {fileID: 1530049819}
+    waitTime: 3
+  - point: {fileID: 1732732219}
+    waitTime: 0
+  - point: {fileID: 476235652}
+    waitTime: 0.5
+  - point: {fileID: 118158102}
+    waitTime: 0
   moveSpeed: 3
 --- !u!4 &1484659972
 Transform:
