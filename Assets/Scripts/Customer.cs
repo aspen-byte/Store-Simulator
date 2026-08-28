@@ -8,6 +8,8 @@ public class Customer : MonoBehaviour
     public float moveSpeed;
     private float currentWaitTime;
 
+    public Animator anim;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,6 +27,8 @@ public class Customer : MonoBehaviour
 
     public void MoveToPoint()
     {
+        bool isMoving = true;
+
         Vector3 targetPosition = new Vector3(points[0].point.position.x, transform.position.y, points[0].point.position.z);
 
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
@@ -33,6 +37,7 @@ public class Customer : MonoBehaviour
 
         if(Vector3.Distance(transform.position, targetPosition) < .25f)
         {
+            isMoving = false;
            
                 currentWaitTime -= Time.deltaTime;
 
@@ -42,6 +47,8 @@ public class Customer : MonoBehaviour
                 }
             
         }
+
+        anim.SetBool("isMoving", isMoving);
     }
 
     public void StartNextPoint()

@@ -5523,6 +5523,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: d9298dcc78ae34c4aaa14ff373b822b9, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: da0710bc9a2e142438718b14063b8c43, type: 2}
     - target: {fileID: 13700000, guid: d9298dcc78ae34c4aaa14ff373b822b9, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -5713,6 +5717,7 @@ MonoBehaviour:
   - point: {fileID: 118158102}
     waitTime: 0
   moveSpeed: 3
+  anim: {fileID: 1880627593}
 --- !u!4 &1484659972
 Transform:
   m_ObjectHideFlags: 0
@@ -6688,6 +6693,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 825607153}
   m_SourcePrefab: {fileID: 100100000, guid: 572a70e443a108c499e65ec57113fb0e, type: 3}
+--- !u!95 &1880627593 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: d9298dcc78ae34c4aaa14ff373b822b9, type: 3}
+  m_PrefabInstance: {fileID: 1422136222}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1891643214
 PrefabInstance:
   m_ObjectHideFlags: 0
