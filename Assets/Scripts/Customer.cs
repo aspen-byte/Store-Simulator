@@ -13,7 +13,10 @@ public class Customer : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentWaitTime = points[0].waitTime;
+        if (points.Count > 0)
+        {
+            currentWaitTime = points[0].waitTime;
+        }
     }
 
     // Update is called once per frame
