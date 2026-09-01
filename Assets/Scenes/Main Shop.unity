@@ -5060,6 +5060,24 @@ MonoBehaviour:
   customersToSpawn:
   - {fileID: 3867778449118517369, guid: f0a62df1fd7bf0148850ce462fc9184a, type: 3}
   timeBetweenCustomers: 5
+  entryPointsLeft:
+  - point: {fileID: 118158102}
+    waitTime: 0
+  - point: {fileID: 476235652}
+    waitTime: 1
+  - point: {fileID: 1732732219}
+    waitTime: 0
+  - point: {fileID: 1530049819}
+    waitTime: 1
+  entryPointsRight:
+  - point: {fileID: 307307599}
+    waitTime: 0
+  - point: {fileID: 2062370}
+    waitTime: 1
+  - point: {fileID: 509418458}
+    waitTime: 0
+  - point: {fileID: 1530049819}
+    waitTime: 1
 --- !u!4 &1294741686
 Transform:
   m_ObjectHideFlags: 0
@@ -7535,6 +7553,10 @@ PrefabInstance:
     - target: {fileID: 8894449792633656792, guid: f0a62df1fd7bf0148850ce462fc9184a, type: 3}
       propertyPath: m_Name
       value: Customer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894449792633656792, guid: f0a62df1fd7bf0148850ce462fc9184a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

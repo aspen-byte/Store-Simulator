@@ -3,10 +3,18 @@ using UnityEngine;
 
 public class CustomerManager : MonoBehaviour
 {
+    public static CustomerManager instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public List<Customer> customersToSpawn = new List<Customer>();
 
     public float timeBetweenCustomers;
     private float spawnCounter;
+
+    public List<NavPoint> entryPointsLeft, entryPointsRight;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,5 +37,43 @@ public class CustomerManager : MonoBehaviour
         Instantiate(customersToSpawn[0]);
 
         spawnCounter = timeBetweenCustomers * Random.Range(.75f, 1.25f);
+    }
+
+    public List<NavPoint> GetEntryPoints()
+    {
+        List<NavPoint> points = new List<NavPoint>();
+
+        if(Random.value < .5f)
+        {
+            points.AddRange(entryPointsLeft);
+        } else
+        {
+            points.AddRange(entryPointsRight);
+        }
+
+        return points;
+    }
+
+    public List<NavPoint> GetExitPoints()
+    {
+        List<NavPoint> points = new List<NavPoint>();
+
+        List<NavPoint> temp = new List<NavPoint>();
+
+        if (Random.value < .5f)
+        {
+            temp.AddRange(entryPointsLeft);
+        }
+        else
+        {
+            temp.AddRange(entryPointsRight);
+        }
+
+        for(int i = temp.Count - 1; i >= 0; i--)
+        {
+            points.Add(temp[i]);
+        }
+
+        return points;
     }
 }
