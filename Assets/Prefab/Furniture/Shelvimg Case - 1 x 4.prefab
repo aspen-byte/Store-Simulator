@@ -32,6 +32,37 @@ Transform:
   - {fileID: 5908786183631233162}
   m_Father: {fileID: 8726908974478507631}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!1 &1494997828917600488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1725409863732258636}
+  m_Layer: 10
+  m_Name: Look Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1725409863732258636
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494997828917600488}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8726908974478507631}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2577997967118840341
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,6 +132,7 @@ Transform:
   m_Children:
   - {fileID: 4739069174700242196}
   - {fileID: 5097837707580743667}
+  - {fileID: 1725409863732258636}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!65 &8933622473248192890
@@ -140,6 +172,12 @@ MonoBehaviour:
   placingObject: {fileID: 55085699474501267}
   col: {fileID: 8933622473248192890}
   price: 250
+  standPoint: {fileID: 1725409863732258636}
+  shelves:
+  - {fileID: 4276387185166195062}
+  - {fileID: 7419773647067601379}
+  - {fileID: 3467170032395942251}
+  - {fileID: 2768354713293678959}
 --- !u!1001 &824639057372987753
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -202,6 +240,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5995499792026748358, guid: 5c560f54255760a40b8e31cdb4f358f4, type: 3}
   m_PrefabInstance: {fileID: 824639057372987753}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7419773647067601379 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7893086149087172746, guid: 5c560f54255760a40b8e31cdb4f358f4, type: 3}
+  m_PrefabInstance: {fileID: 824639057372987753}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edb40fbdcf2a0954999f59b58342e2e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShelfSpaceController
 --- !u!1001 &2945047430006455776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -409,6 +458,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5995499792026748358, guid: 5c560f54255760a40b8e31cdb4f358f4, type: 3}
   m_PrefabInstance: {fileID: 5468157169025184229}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2768354713293678959 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7893086149087172746, guid: 5c560f54255760a40b8e31cdb4f358f4, type: 3}
+  m_PrefabInstance: {fileID: 5468157169025184229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edb40fbdcf2a0954999f59b58342e2e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShelfSpaceController
 --- !u!1001 &6255824737977008636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -471,6 +531,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5995499792026748358, guid: 5c560f54255760a40b8e31cdb4f358f4, type: 3}
   m_PrefabInstance: {fileID: 6255824737977008636}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4276387185166195062 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7893086149087172746, guid: 5c560f54255760a40b8e31cdb4f358f4, type: 3}
+  m_PrefabInstance: {fileID: 6255824737977008636}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edb40fbdcf2a0954999f59b58342e2e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShelfSpaceController
 --- !u!1001 &6743081400984101345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -533,3 +604,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5995499792026748358, guid: 5c560f54255760a40b8e31cdb4f358f4, type: 3}
   m_PrefabInstance: {fileID: 6743081400984101345}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3467170032395942251 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7893086149087172746, guid: 5c560f54255760a40b8e31cdb4f358f4, type: 3}
+  m_PrefabInstance: {fileID: 6743081400984101345}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edb40fbdcf2a0954999f59b58342e2e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShelfSpaceController
