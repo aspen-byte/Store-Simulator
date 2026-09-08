@@ -24,6 +24,8 @@ public class Customer : MonoBehaviour
     private bool hasGrabbed;
     public float waitAfterGrabbing = .5f;
 
+    private List<StockObject> stockInBag = new List<StockObject>();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -122,28 +124,38 @@ public class Customer : MonoBehaviour
 
     public void MoveToPoint()
     {
-        bool isMoving = true;
-
-        Vector3 targetPosition = new Vector3(points[0].point.position.x, transform.position.y, points[0].point.position.z);
-
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-        transform.LookAt(targetPosition);
-
-        if(Vector3.Distance(transform.position, targetPosition) < .25f)
+        if (points.Count > 0)
         {
-            isMoving = false;
-           
+
+
+            bool isMoving = true;
+
+            Vector3 targetPosition = new Vector3(points[0].point.position.x, transform.position.y, points[0].point.position.z);
+
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+
+            transform.LookAt(targetPosition);
+
+            if (Vector3.Distance(transform.position, targetPosition) < .25f)
+            {
+                isMoving = false;
+
                 currentWaitTime -= Time.deltaTime;
 
-                if(currentWaitTime <= 0)
+                if (currentWaitTime <= 0)
                 {
                     StartNextPoint();
                 }
-            
+
+            }
+
+
+            anim.SetBool("isMoving", isMoving);
+        } else
+        {
+            StartNextPoint();
         }
 
-        anim.SetBool("isMoving", isMoving);
     }
 
     public void StartNextPoint()
@@ -167,7 +179,7 @@ public class Customer : MonoBehaviour
         points.AddRange(CustomerManager.instance.GetExitPoints());
     }
 
-    void GetBrowsePoint()
+    void GetBrowsePoint() 
     {
         points.Clear();
 
@@ -185,14 +197,30 @@ public class Customer : MonoBehaviour
 
     public void GrabStock()
     {
-        shoppingBag.SetActive(true);
+        
         hasGrabbed = true;
 
-        points.Clear();
-        points.Add(new NavPoint());
-        points[0].point = currentShelfCase.standPoint;
-        points[0].waitTime = waitAfterGrabbing * Random.Range(.75f, 1.25f);
-        currentWaitTime = points[0].waitTime;
+
+        int shelf = Random.Range(0, currentShelfCase.shelves.Count);
+
+        StockObject stock = currentShelfCase.shelves[shelf].GetStock();
+
+        if(stock != null)
+        {
+            stock.transform.SetParent(shoppingBag.transform);
+            stockInBag.Add(stock);
+            stock.PlaceInBag();
+
+            shoppingBag.SetActive(true);
+
+            points.Clear();
+            points.Add(new NavPoint());
+            points[0].point = currentShelfCase.standPoint;
+            points[0].waitTime = waitAfterGrabbing * Random.Range(.75f, 1.25f);
+            currentWaitTime = points[0].waitTime;
+        }
+
+        
     }
 }
 

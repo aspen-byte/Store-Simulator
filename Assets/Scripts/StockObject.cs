@@ -11,6 +11,8 @@ public class StockObject : MonoBehaviour
     public Rigidbody theRB;
     public Collider col;
 
+    private bool inBag;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,10 +22,15 @@ public class StockObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isPlaced == true)
+        if (isPlaced == true)
         {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, Vector3.zero, moveSpeed * Time.deltaTime);
             transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.identity, moveSpeed * Time.deltaTime);
+        }
+
+        if(inBag == true)
+        {
+            transform.localScale = Vector3.MoveTowards(transform.localScale, Vector3.zero, Time.deltaTime);
         }
     }
 
@@ -60,5 +67,12 @@ public class StockObject : MonoBehaviour
     {
         theRB.isKinematic = true;
         col.enabled = false;
+    }
+
+    public void PlaceInBag()
+    {
+        inBag = true;
+
+        MakePlaced();
     }
 }
