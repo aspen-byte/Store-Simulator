@@ -16,13 +16,13 @@ public class BuyMenuController : MonoBehaviour
         
     }
 
-    public void OpenStockPannel()
+    public void OpenStockPanel()
     {
         stockPanel.SetActive(true);
         furniturePanel.SetActive(false);
     }
 
-    public void OpenFurniturePannel()
+    public void OpenFurniturePanel()
     {
         stockPanel.SetActive(false);
         furniturePanel.SetActive(true);

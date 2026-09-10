@@ -43,6 +43,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
     public Transform furniturePoint;
     public FurnitureController heldFurniture;
 
+    public LayerMask whatIsCheckout;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -159,6 +161,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
                         heldBox.OpenClose();
                     }
                     return;
+                }
+
+                if (Physics.Raycast(ray, out hit, interactionRange, whatIsCheckout))
+                {
+                    hit.collider.GetComponent<Checkout>().CheckoutCustomer();
                 }
 
             }
