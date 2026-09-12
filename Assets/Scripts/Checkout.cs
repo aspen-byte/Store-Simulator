@@ -1,10 +1,22 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class Checkout : MonoBehaviour
 {
+    public static Checkout instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public TMP_Text priceText;
     public GameObject checkoutScreen;
+
+    public Transform queuePoint;
+
+    public List<Customer> customersInQueue = new List<Customer>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,5 +45,20 @@ public class Checkout : MonoBehaviour
     public void CheckoutCustomer()
     {
         HidePrice();
+    }
+
+    public void AddCustomerToQueue(Customer newCust)
+    {
+        customersInQueue.Add(newCust);
+
+        updateQueue();
+    }
+
+    public void updateQueue()
+    {
+        for(int i = 0;  i < customersInQueue.Count; i++)
+        {
+            customersInQueue[i].UpdateQueuePoint(queuePoint.position + (queuePoint.forward * i * .5f));
+        }
     }
 }
