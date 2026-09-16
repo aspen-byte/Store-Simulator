@@ -6412,7 +6412,7 @@ MonoBehaviour:
   - {fileID: 4390838255868124846, guid: dcbf4a916d8b6cc43bf191a022a42090, type: 3}
   - {fileID: 4390838255868124846, guid: 5a9a9356c93d2e44ea58df3032ded9d7, type: 3}
   - {fileID: 4390838255868124846, guid: 3940ad843c63ae040922781c70e72547, type: 3}
-  timeBetweenCustomers: 2
+  timeBetweenCustomers: 20
   entryPointsLeft:
   - point: {fileID: 118158102}
     waitTime: 0
