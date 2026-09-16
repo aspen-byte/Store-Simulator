@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -23,6 +24,10 @@ public class UIController : MonoBehaviour
 
     public GameObject buyMenueScreen;
 
+    public string mainMenuScene;
+
+    public GameObject pauseScreen;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,6 +40,11 @@ public class UIController : MonoBehaviour
         if(Keyboard.current.tabKey.wasPressedThisFrame)
         {
             OpenCloseBuyMenu();
+        }
+
+        if(Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            PauseUnpause();
         }
     }
 
@@ -88,6 +98,40 @@ public class UIController : MonoBehaviour
             buyMenueScreen.SetActive(false);
 
             Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(mainMenuScene);
+
+        Time.timeScale = 1f;
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+
+        Debug.Log("Quitting The Game");
+    }
+
+    public void PauseUnpause()
+    {
+        if(pauseScreen.activeSelf == false)
+        {
+            pauseScreen.SetActive(true);
+
+            Cursor.lockState= CursorLockMode.None;
+
+            Time.timeScale = 0;
+
+        } else
+        {
+            pauseScreen.SetActive(false);
+
+            Cursor.lockState = CursorLockMode.Locked;
+
+            Time.timeScale = 1f;
         }
     }
 }

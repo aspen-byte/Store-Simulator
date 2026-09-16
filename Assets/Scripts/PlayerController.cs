@@ -70,6 +70,14 @@ public class NewMonoBehaviourScript : MonoBehaviour
             }
         }
 
+        if (UIController.instance.pauseScreen != null)
+        {
+            if (UIController.instance.pauseScreen.activeSelf == true)
+            {
+                return;
+            }
+        }
+
 
         Vector2 lookinput = lookAction.action.ReadValue<Vector2>();
 
