@@ -5167,11 +5167,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4862116165349119372, guid: 2aa1fbd31ebce14439ff1a66fb0a0013, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenStockPannel
+      value: OpenStockPanel
       objectReference: {fileID: 0}
     - target: {fileID: 5454966403372486750, guid: 2aa1fbd31ebce14439ff1a66fb0a0013, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenFurniturePannel
+      value: OpenFurniturePanel
       objectReference: {fileID: 0}
     - target: {fileID: 5572998678304135493, guid: 2aa1fbd31ebce14439ff1a66fb0a0013, type: 3}
       propertyPath: m_IsActive

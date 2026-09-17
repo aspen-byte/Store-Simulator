@@ -26,6 +26,8 @@ public class AudioManager : MonoBehaviour
     private bool bgmPlaying;
     private int currentTrack;
 
+    public List<AudioSource> sfx = new List<AudioSource>();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -55,7 +57,7 @@ public class AudioManager : MonoBehaviour
 
     public void StopMusic()
     {
-        titleMusic.Play();
+        titleMusic.Stop();
 
         foreach(AudioSource track in bgm)
         {
@@ -79,5 +81,12 @@ public class AudioManager : MonoBehaviour
         currentTrack = Random.Range(0, bgm.Count);
 
         bgm[currentTrack].Play();
+    }
+
+    public void PlaySFX(int sfxToPlay)
+    {
+        sfx[sfxToPlay].Stop();
+
+        sfx[sfxToPlay].Play();
     }
 }

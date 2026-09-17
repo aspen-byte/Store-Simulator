@@ -112,6 +112,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
             if (jumpAction.action.WasPressedThisFrame())
             {
                 ySpeed = jumpForce;
+
+                if (AudioManager.instance != null)
+                {
+                    AudioManager.instance.PlaySFX(8);
+                }
             }
         }
 
@@ -154,6 +159,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
                     heldPickup.transform.SetParent(holdPoint);
                     heldPickup.Pickup();
 
+                    if (AudioManager.instance != null)
+                    {
+                        AudioManager.instance.PlaySFX(6);
+                    }
+
                     return;
                 }
 
@@ -168,6 +178,12 @@ public class NewMonoBehaviourScript : MonoBehaviour
                     {
                         heldBox.OpenClose();
                     }
+
+                    if (AudioManager.instance != null)
+                    {
+                        AudioManager.instance.PlaySFX(1);
+                    }
+
                     return;
                 }
 
@@ -218,6 +234,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
                     heldFurniture.transform.localRotation = Quaternion.identity;
 
                     heldFurniture.MakePlaceable();
+
+                    if (AudioManager.instance != null)
+                    {
+                        AudioManager.instance.PlaySFX(4);
+                    }
                 }
             }
         }
@@ -247,6 +268,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
                         {
                             heldPickup = null;
                         }
+
+                        if (AudioManager.instance != null)
+                        {
+                            AudioManager.instance.PlaySFX(7);
+                        }
                     }
                 }
 
@@ -258,8 +284,15 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
                     heldPickup.theRB.AddForce(theCam.transform.forward * throwForce, ForceMode.Impulse);
 
+
+
                     heldPickup.transform.SetParent(null);
                     heldPickup = null;
+
+                    if (AudioManager.instance != null)
+                    {
+                        AudioManager.instance.PlaySFX(9);
+                    }
                 }
             }
 
@@ -273,6 +306,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
                     heldBox.transform.SetParent(null);
                     heldBox = null;
+
+                    if (AudioManager.instance != null)
+                    {
+                        AudioManager.instance.PlaySFX(0);
+                    }
                 }
 
                 if(Keyboard.current.eKey.wasPressedThisFrame)
@@ -290,6 +328,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
                             heldBox.PlaceStockOnShelf(hit.collider.GetComponent<ShelfSpaceController>());
 
                             placeStockCounter = waitToPlaceStock;
+
+                            if (AudioManager.instance != null)
+                            {
+                                AudioManager.instance.PlaySFX(7);
+                            }
                         }
                     } else
                     {
@@ -298,6 +341,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
                             Destroy(heldBox.gameObject);
 
                             heldBox = null;
+
+                            if (AudioManager.instance != null)
+                            {
+                                AudioManager.instance.PlaySFX(10);
+                            }
                         }
                     }
 
@@ -333,7 +381,10 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
                     heldFurniture = null;
 
-
+                    if (AudioManager.instance != null)
+                    {
+                        AudioManager.instance.PlaySFX(5);
+                    }
                 }
             }
         }

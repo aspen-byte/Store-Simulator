@@ -64,6 +64,11 @@ public class Checkout : MonoBehaviour
 
             updateQueue();
 
+            if (AudioManager.instance != null)
+            {
+                AudioManager.instance.PlaySFX(3);
+            }
+
         }  
     }
 
