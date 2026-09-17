@@ -1,0 +1,83 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class AudioManager : MonoBehaviour
+{
+    public static AudioManager instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+
+            instance = this;
+
+            DontDestroyOnLoad(gameObject);
+        } else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public AudioSource titleMusic;
+
+    public List<AudioSource> bgm = new List<AudioSource>();
+
+    private bool bgmPlaying;
+    private int currentTrack;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(bgmPlaying == true)
+        {
+            if (bgm[currentTrack].isPlaying == false)
+            {
+                /* currentTrack++;
+
+                if(currentTrack >= bgm.Count)
+                {
+                    currentTrack = 0;
+                }
+
+                bgm[currentTrack].Play(); */
+
+                StartBGM();
+            }
+        }
+    }
+
+    public void StopMusic()
+    {
+        titleMusic.Play();
+
+        foreach(AudioSource track in bgm)
+        {
+            track.Stop();
+        }
+
+        bgmPlaying = false;
+    }
+
+    public void StartTitleMusic()
+    {
+        titleMusic.Play();
+    }
+
+    public void StartBGM()
+    {
+        StopMusic();
+
+        bgmPlaying = true;
+
+        currentTrack = Random.Range(0, bgm.Count);
+
+        bgm[currentTrack].Play();
+    }
+}
