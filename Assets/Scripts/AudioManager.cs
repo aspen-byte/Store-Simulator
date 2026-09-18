@@ -69,7 +69,13 @@ public class AudioManager : MonoBehaviour
 
     public void StartTitleMusic()
     {
-        titleMusic.Play();
+        // stop any background music first to avoid overlapping tracks
+        StopMusic();
+
+        if (titleMusic != null)
+        {
+            titleMusic.Play();
+        }
     }
 
     public void StartBGM()
