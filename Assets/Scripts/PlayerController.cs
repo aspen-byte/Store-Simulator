@@ -78,7 +78,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
             }
         }
 
-
+        //This is the players POV control
         Vector2 lookinput = lookAction.action.ReadValue<Vector2>();
 
         horiRot = horiRot + lookinput.x * Time.deltaTime * lookSpeed;
@@ -140,6 +140,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
          {
              Debug.Log("I can't see anything!!!!");
          } */
+
+        //Left click to pickup
         if (heldPickup == null && heldBox == null && heldFurniture == null)
         {
             if (Mouse.current.leftButton.wasPressedThisFrame)
@@ -186,14 +188,14 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
                     return;
                 }
-
+                //click for checkout
                 if (Physics.Raycast(ray, out hit, interactionRange, whatIsCheckout))
                 {
                     hit.collider.GetComponent<Checkout>().CheckoutCustomer();
                 }
 
             }
-
+            
             if (Mouse.current.rightButton.wasPressedThisFrame)
             {
                 if (Physics.Raycast(ray, out hit, interactionRange, whatIsShelf))
@@ -214,7 +216,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
                     hit.collider.GetComponent<StockBoxController>().OpenClose();
                 }
             }
-
+            // E key on shelf to update price
             if(Keyboard.current.eKey.wasPressedThisFrame)
             {
                 if (Physics.Raycast(ray, out hit, interactionRange, whatIsShelf))
@@ -222,7 +224,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
                     hit.collider.GetComponent<ShelfSpaceController>().StartPriceUpdate();
                 }
             }
-
+            //R key to pickup shelf and move it
             if(Keyboard.current.rKey.wasPressedThisFrame)
             {
                 if (Physics.Raycast(ray, out hit, interactionRange, whatIsFurniture))
@@ -295,7 +297,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
                     }
                 }
             }
-
+            //Right click to throw box
             if(heldBox != null)
             {
                 if (Mouse.current.rightButton.wasPressedThisFrame)
@@ -312,12 +314,12 @@ public class NewMonoBehaviourScript : MonoBehaviour
                         AudioManager.instance.PlaySFX(0);
                     }
                 }
-
+                // E key whilst holding box opens/closes box
                 if(Keyboard.current.eKey.wasPressedThisFrame)
                 {
                     heldBox.OpenClose();
                 }
-
+                // Left click to place stock
                 if(Mouse.current.leftButton.wasPressedThisFrame)
                 {
                     if (heldBox.stockInBox.Count > 0)
@@ -349,7 +351,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
                         }
                     }
 
-
+                    //(above) When holding box left click on bin to delete box 
                 }
 
                 if(Mouse.current.leftButton.isPressed)
@@ -367,7 +369,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
                     }
                 }
             }
-
+            //pickup and move furniture with R key
             if(heldFurniture != null)
             {
                 heldFurniture.transform.position = new Vector3(furniturePoint.position.x, 0f, furniturePoint.position.z);

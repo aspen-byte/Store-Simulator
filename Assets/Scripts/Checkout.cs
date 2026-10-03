@@ -36,7 +36,7 @@ public class Checkout : MonoBehaviour
             }
         }
     }
-
+    //Shows price of item customer bought
     public void ShowPrice(float priceTotal)
     {
         checkoutScreen.SetActive(true);

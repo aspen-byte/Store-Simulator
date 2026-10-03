@@ -152,7 +152,7 @@ public class Customer : MonoBehaviour
     {
         if (points.Count > 0)
         {
-
+            //Allows customer to wait at points
 
             bool isMoving = true;
 
@@ -204,7 +204,7 @@ public class Customer : MonoBehaviour
         points.Clear();
         points.AddRange(CustomerManager.instance.GetExitPoints());
     }
-
+    
     void GetBrowsePoint() 
     {
         points.Clear();
@@ -248,7 +248,7 @@ public class Customer : MonoBehaviour
 
         
     }
-
+    //Customer will line upbehind eachother
     public void UpdateQueuePoint(Vector3 newPoint)
     {
         queuePoint = newPoint;

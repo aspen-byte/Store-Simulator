@@ -35,6 +35,7 @@ public class UIController : MonoBehaviour
     }
 
     // Update is called once per frame
+    //Tab to open/close buy menu
     void Update()
     {
         if(Keyboard.current.tabKey.wasPressedThisFrame)
