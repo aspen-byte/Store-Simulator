@@ -5,16 +5,16 @@ public class MainMenue : MonoBehaviour
 {
     public string mainScene;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Menu Panels")]
+    [SerializeField] private GameObject mainPausePanel;
+    [SerializeField] private GameObject settingsPanel;
+
     void Start()
     {
-        AudioManager.instance.StartTitleMusic();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.StartTitleMusic();
+        }
     }
 
     public void StartGame()
@@ -22,10 +22,21 @@ public class MainMenue : MonoBehaviour
         SceneManager.LoadScene(mainScene);
     }
 
+    public void OpenSettings()
+    {
+        mainPausePanel.SetActive(false);
+        settingsPanel.SetActive(true);
+    }
+
+    public void CloseSettings()
+    {
+        settingsPanel.SetActive(true);
+        mainPausePanel.SetActive(false);
+    }
+
     public void QuitGame()
     {
         Application.Quit();
-
         Debug.Log("Quit The Game");
     }
 }
