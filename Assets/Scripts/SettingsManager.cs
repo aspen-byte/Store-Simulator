@@ -8,6 +8,12 @@ public class SettingsManager : MonoBehaviour
 {
     public static SettingsManager Instance { get; private set; }
 
+    // Default Values
+    private const float DEFAULT_SENSITIVITY = 2f;
+    private const bool DEFAULT_INVERT_X = false;
+    private const bool DEFAULT_INVERT_Y = false;
+    private const KeyCode DEFAULT_INTERACT_KEY = KeyCode.E;
+
     [Header("Mouse Controls")]
     [SerializeField] private Slider sensitivitySlider;
     [SerializeField] private Toggle invertXToggle;
@@ -15,13 +21,13 @@ public class SettingsManager : MonoBehaviour
 
     [Header("Keybinding UI")]
     [SerializeField] private TMP_Text interactKeyText;
-    private KeyCode interactKey = KeyCode.E;
+    private KeyCode interactKey = DEFAULT_INTERACT_KEY;
     private bool isRebindingKey = false;
 
     // Public properties to read from player movement / camera scripts
-    public float Sensitivity { get; private set; } = 2f;
-    public bool InvertX { get; private set; } = false;
-    public bool InvertY { get; private set; } = false;
+    public float Sensitivity { get; private set; } = DEFAULT_SENSITIVITY;
+    public bool InvertX { get; private set; } = DEFAULT_INVERT_X;
+    public bool InvertY { get; private set; } = DEFAULT_INVERT_Y;
 
     private void Awake()
     {
@@ -34,14 +40,14 @@ public class SettingsManager : MonoBehaviour
         LoadSettings();
     }
 
-    // --- MOUSE SENSITIVITY ---
+    // MOUSE SENSITIVITY
     public void SetSensitivity(float value)
     {
         Sensitivity = value;
         PlayerPrefs.SetFloat("MouseSensitivity", Sensitivity);
     }
 
-    // --- AXIS INVERSION ---
+    // AXIS INVERSION
     public void SetInvertX(bool isInverted)
     {
         InvertX = isInverted;
@@ -54,7 +60,7 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetInt("InvertY", InvertY ? 1 : 0);
     }
 
-    // --- KEYBINDING ---
+    // KEYBINDING
     public void StartRebindingInteractKey()
     {
         if (!isRebindingKey)
@@ -94,14 +100,38 @@ public class SettingsManager : MonoBehaviour
         return interactKey;
     }
 
-    // --- LOAD SAVED SETTINGS ---
+    // RESET SETTINGS TO DEFAULT
+    public void ResetToDefaults()
+    {
+        // Cancel active rebinding if the player clicks reset during keybind prompt
+        StopAllCoroutines();
+        isRebindingKey = false;
+
+        // Reset backing values and saved preferences
+        SetSensitivity(DEFAULT_SENSITIVITY);
+        SetInvertX(DEFAULT_INVERT_X);
+        SetInvertY(DEFAULT_INVERT_Y);
+
+        interactKey = DEFAULT_INTERACT_KEY;
+        PlayerPrefs.SetString("InteractKey", DEFAULT_INTERACT_KEY.ToString());
+
+        // Refresh UI elements
+        if (sensitivitySlider != null) sensitivitySlider.value = DEFAULT_SENSITIVITY;
+        if (invertXToggle != null) invertXToggle.isOn = DEFAULT_INVERT_X;
+        if (invertYToggle != null) invertYToggle.isOn = DEFAULT_INVERT_Y;
+        if (interactKeyText != null) interactKeyText.text = DEFAULT_INTERACT_KEY.ToString();
+
+        PlayerPrefs.Save();
+    }
+
+    // LOAD SAVED SETTINGS
     private void LoadSettings()
     {
-        Sensitivity = PlayerPrefs.GetFloat("MouseSensitivity", 2f);
-        InvertX = PlayerPrefs.GetInt("InvertX", 0) == 1;
-        InvertY = PlayerPrefs.GetInt("InvertY", 0) == 1;
+        Sensitivity = PlayerPrefs.GetFloat("MouseSensitivity", DEFAULT_SENSITIVITY);
+        InvertX = PlayerPrefs.GetInt("InvertX", DEFAULT_INVERT_X ? 1 : 0) == 1;
+        InvertY = PlayerPrefs.GetInt("InvertY", DEFAULT_INVERT_Y ? 1 : 0) == 1;
 
-        string savedKey = PlayerPrefs.GetString("InteractKey", "E");
+        string savedKey = PlayerPrefs.GetString("InteractKey", DEFAULT_INTERACT_KEY.ToString());
         Enum.TryParse(savedKey, out interactKey);
 
         // Apply loaded values to UI controls
