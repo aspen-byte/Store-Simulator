@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -8,11 +9,14 @@ public class SettingsManager : MonoBehaviour
 {
     public static SettingsManager Instance { get; private set; }
 
-    // Default Values
     private const float DEFAULT_SENSITIVITY = 2f;
     private const bool DEFAULT_INVERT_X = false;
     private const bool DEFAULT_INVERT_Y = false;
     private const KeyCode DEFAULT_INTERACT_KEY = KeyCode.E;
+    private int defaultGraphicsIndex;
+
+    [Header("Graphics Settings")]
+    [SerializeField] private TMP_Dropdown graphicsDropdown;
 
     [Header("Mouse Controls")]
     [SerializeField] private Slider sensitivitySlider;
@@ -24,7 +28,6 @@ public class SettingsManager : MonoBehaviour
     private KeyCode interactKey = DEFAULT_INTERACT_KEY;
     private bool isRebindingKey = false;
 
-    // Public properties to read from player movement / camera scripts
     public float Sensitivity { get; private set; } = DEFAULT_SENSITIVITY;
     public bool InvertX { get; private set; } = DEFAULT_INVERT_X;
     public bool InvertY { get; private set; } = DEFAULT_INVERT_Y;
@@ -37,17 +40,33 @@ public class SettingsManager : MonoBehaviour
 
     private void Start()
     {
+        if (graphicsDropdown != null)
+        {
+            graphicsDropdown.ClearOptions();
+            List<string> options = new List<string>(QualitySettings.names);
+            graphicsDropdown.AddOptions(options);
+        }
+
+        defaultGraphicsIndex = QualitySettings.names.Length - 1;
+
         LoadSettings();
     }
 
-    // MOUSE SENSITIVITY
+    // Graphics Quality
+    public void SetGraphicsQuality(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex);
+        PlayerPrefs.SetInt("GraphicsQuality", qualityIndex);
+    }
+
+    // Mouse Sensitivity
     public void SetSensitivity(float value)
     {
         Sensitivity = value;
         PlayerPrefs.SetFloat("MouseSensitivity", Sensitivity);
     }
 
-    // AXIS INVERSION
+    // Axis Inversion
     public void SetInvertX(bool isInverted)
     {
         InvertX = isInverted;
@@ -60,13 +79,10 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetInt("InvertY", InvertY ? 1 : 0);
     }
 
-    // KEYBINDING
+    // Keybinding
     public void StartRebindingInteractKey()
     {
-        if (!isRebindingKey)
-        {
-            StartCoroutine(RebindKeyRoutine());
-        }
+        if (!isRebindingKey) StartCoroutine(RebindKeyRoutine());
     }
 
     private IEnumerator RebindKeyRoutine()
@@ -74,12 +90,9 @@ public class SettingsManager : MonoBehaviour
         isRebindingKey = true;
         if (interactKeyText != null) interactKeyText.text = "Press Any Key...";
 
-        yield return null; // Wait 1 frame to prevent immediate trigger
+        yield return null;
 
-        while (!Input.anyKeyDown)
-        {
-            yield return null;
-        }
+        while (!Input.anyKeyDown) yield return null;
 
         foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
         {
@@ -91,53 +104,61 @@ public class SettingsManager : MonoBehaviour
                 break;
             }
         }
-
         isRebindingKey = false;
     }
 
-    public KeyCode GetInteractKey()
-    {
-        return interactKey;
-    }
+    public KeyCode GetInteractKey() { return interactKey; }
 
-    // RESET SETTINGS TO DEFAULT
+    // Reset to Defaults
     public void ResetToDefaults()
     {
-        // Cancel active rebinding if the player clicks reset during keybind prompt
         StopAllCoroutines();
         isRebindingKey = false;
 
-        // Reset backing values and saved preferences
         SetSensitivity(DEFAULT_SENSITIVITY);
         SetInvertX(DEFAULT_INVERT_X);
         SetInvertY(DEFAULT_INVERT_Y);
+        SetGraphicsQuality(defaultGraphicsIndex);
 
         interactKey = DEFAULT_INTERACT_KEY;
         PlayerPrefs.SetString("InteractKey", DEFAULT_INTERACT_KEY.ToString());
 
-        // Refresh UI elements
         if (sensitivitySlider != null) sensitivitySlider.value = DEFAULT_SENSITIVITY;
         if (invertXToggle != null) invertXToggle.isOn = DEFAULT_INVERT_X;
         if (invertYToggle != null) invertYToggle.isOn = DEFAULT_INVERT_Y;
         if (interactKeyText != null) interactKeyText.text = DEFAULT_INTERACT_KEY.ToString();
 
+        if (graphicsDropdown != null)
+        {
+            graphicsDropdown.value = defaultGraphicsIndex;
+            graphicsDropdown.RefreshShownValue();
+        }
+
         PlayerPrefs.Save();
     }
 
-    // LOAD SAVED SETTINGS
+    // Load Settings
     private void LoadSettings()
     {
         Sensitivity = PlayerPrefs.GetFloat("MouseSensitivity", DEFAULT_SENSITIVITY);
         InvertX = PlayerPrefs.GetInt("InvertX", DEFAULT_INVERT_X ? 1 : 0) == 1;
         InvertY = PlayerPrefs.GetInt("InvertY", DEFAULT_INVERT_Y ? 1 : 0) == 1;
 
+        int savedQuality = PlayerPrefs.GetInt("GraphicsQuality", defaultGraphicsIndex);
+        QualitySettings.SetQualityLevel(savedQuality);
+
         string savedKey = PlayerPrefs.GetString("InteractKey", DEFAULT_INTERACT_KEY.ToString());
         Enum.TryParse(savedKey, out interactKey);
 
-        // Apply loaded values to UI controls
         if (sensitivitySlider != null) sensitivitySlider.value = Sensitivity;
         if (invertXToggle != null) invertXToggle.isOn = InvertX;
         if (invertYToggle != null) invertYToggle.isOn = InvertY;
         if (interactKeyText != null) interactKeyText.text = interactKey.ToString();
+
+        if (graphicsDropdown != null)
+        {
+            graphicsDropdown.value = savedQuality;
+            graphicsDropdown.RefreshShownValue();
+        }
     }
 }
